@@ -1,0 +1,49 @@
+My first POST on crypto phishing had very positive feedback, which motivated me to bring something more technical this time around. But I promise I will not be technically boring.
+
+I looked for an application that was simple to explain the behavior described on my last post, difficult because phishing applications are usually banned from the markets. But I finally found one, see https://apkpure.com/pancakeswap/com.lodings.pancakeswap.
+
+It looks like a legitimate PancakeSwap app, for those who don't know the official website is https://pancakeswap.finance/ as the site indicates allows an exchange of crypto currency from various types of wallets. We can also validate that the PancakeSwap website does not indicate the existence of an android or IOS application.
+
+The screenshoots below demonstrate a small interaction with the app:
+- https://snipboard.io/bloXPp.jpg
+- https://snipboard.io/TNMSv0.jpg
+- https://snipboard.io/zW2cVO.jpg
+
+Still doesn't look suspicious enough? 
+
+The only way for the application to log in is to request secret user data, which we know we shouldn't share with anyone. 
+
+But I promised the analysis would be technical. Let's take a look at the code.
+
+For this analysis, we will just use jadx, our goal is to understand where the user data (Mnemonic wallet or private key) will be sent .
+
+We will start an analysis by the MainActivity class, why? If we look at the manifest file we can see that the application only have this entry point.
+
+See the following snippet of code present in apk:
+
+    public void onCreate (Bundle bundle) {
+        super.onCreate (package);
+        setContentView (R.layout.activity_main);
+        WebView webView2 = (WebView) findViewById (R.id.webView);
+        this.webView = webView2;
+        webView2.setWebViewClient (new WebViewClient());
+        this.webView.loadUrl("https://pancaktool.shop/seo");
+        this.webView.getSettings(). setJavaScriptEnabled (true);
+    }
+
+That's exactly what you are thinking, the application will launch and load on the page https://pancaktool.shop/seo. It's like we're in our browser and we're accessing this URL.
+
+I will now load the URL on browser and realize where the user's secret data is being sent.
+
+To do this validation I put the url in my browser and press F12 to access the developer tools, in this situation I want to analyze the Network tab.
+
+As soon as the user enters his mnemonic phrase or the private key it is sent to the enpoint https://walconnectercorpiss.fun/album/album.php.
+
+- https://snipboard.io/GoQBLw.jpg
+- https://snipboard.io/JsiERg.jpg
+
+Phishing confirmed, ot Still doesn't look suspicious enough?
+
+This procedure is quite easy, but very common nowadays, I hope it helped once again.
+
+Stay well, stay safe!
